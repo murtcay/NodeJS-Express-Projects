@@ -30,7 +30,7 @@ formDOM.addEventListener('submit', async (e) => {
     tokenDOM.classList.add('text-success')
   } catch (error) {
     formAlertDOM.style.display = 'block'
-    formAlertDOM.textContent = error.response.data.msg
+    formAlertDOM.textContent = error.response.data.error
     localStorage.removeItem('token')
     resultDOM.innerHTML = ''
     tokenDOM.textContent = 'no token present'
@@ -54,7 +54,7 @@ btnDOM.addEventListener('click', async () => {
     data.secret
   } catch (error) {
     localStorage.removeItem('token')
-    resultDOM.innerHTML = `<p>${error.response.data.msg}</p>`
+    resultDOM.innerHTML = `<p>${error.response.data.error}</p>`
   }
 })
 
