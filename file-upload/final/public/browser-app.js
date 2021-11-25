@@ -47,9 +47,11 @@ try {
  
   await axios.post(url,product);
   fetchProducts()
+  fileFormDOM.reset();
 } catch (error) {
  console.log(error);
 }
+
 })
 
 
