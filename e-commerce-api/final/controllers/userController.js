@@ -3,7 +3,8 @@ const { StatusCodes } = require('http-status-codes');
 const CustomError = require('../errors');
 const { 
   createTokenUser, 
-  attachCookiesToResponse
+  attachCookiesToResponse,
+  checkPermissions
 } = require('../utils');
 
 const getAllUsers = async (req, res) => {
@@ -19,6 +20,8 @@ const getSingleUser = async (req, res) => {
     throw new CustomError.NotFoundError(`No user with id: ${userId}`);
   }
 
+  checkPermisions(req.user, user._id);
+  
   res.status(StatusCodes.OK).send({ user });
 };
 
@@ -64,7 +67,7 @@ const updateUser = async (req, res) => {
   user.name = name;
   user.email = email;
   await user.save();
-  
+
   const tokenUser = createTokenUser(user);
   
   attachCookiesToResponse({
