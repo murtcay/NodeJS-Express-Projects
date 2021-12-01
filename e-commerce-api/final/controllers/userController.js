@@ -26,6 +26,33 @@ const showCurrentUser = async (req, res) => {
   res.status(StatusCodes.OK).json({ user: req.user });
 };
 
+// // updateUser with User.findOneAndUpdate()
+// const updateUser = async (req, res) => {
+//   const { name, email } = req.body;
+
+//   if(!name || !email) {
+//     throw new CustomError.BadRequestError('Please provide both name and email.');
+//   }
+
+//   const user = await User.findOneAndUpdate(
+//     {_id: req.user.userId},
+//     { name, email },
+//     { new: true, runValidators: true }
+//   );
+
+//   const tokenUser = createTokenUser(user);
+  
+//   attachCookiesToResponse({
+//     res,
+//     user: tokenUser
+//   });
+  
+//   res.status(StatusCodes.OK).json({ 
+//     user: tokenUser
+//   });
+// };
+
+// updateUser with user.save()
 const updateUser = async (req, res) => {
   const { name, email } = req.body;
 
@@ -33,12 +60,11 @@ const updateUser = async (req, res) => {
     throw new CustomError.BadRequestError('Please provide both name and email.');
   }
 
-  const user = await User.findOneAndUpdate(
-    {_id: req.user.userId},
-    { name, email },
-    { new: true, runValidators: true }
-  );
-
+  const user = await User.findOne({ _id: req.user.userId });
+  user.name = name;
+  user.email = email;
+  await user.save();
+  
   const tokenUser = createTokenUser(user);
   
   attachCookiesToResponse({
