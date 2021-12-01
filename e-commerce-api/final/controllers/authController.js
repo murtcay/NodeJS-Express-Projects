@@ -61,7 +61,7 @@ const login = async (req, res) => {
     user: tokenUser
   });
   
-  res.status(StatusCodes.CREATED).json({ 
+  res.status(StatusCodes.OK).json({ 
     user: tokenUser
   });
 };
