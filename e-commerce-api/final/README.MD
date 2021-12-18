@@ -1,6 +1,6 @@
 ## Hosted Project
 
-[E-Commerce API Heroku URL]()
+[E-Commerce API Heroku URL](https://e-commerce-api-murtcay.herokuapp.com/)
 
 #### Setup Basic Express Server
 
